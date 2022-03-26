@@ -16,11 +16,12 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@database": ["database/index.ts"],
       "@components/*": ["components/*"],
-      "@database": ["database/products.ts"],
       "@interfaces": ["interfaces/index.ts"],
       "@styles/*": ["styles/*"],
-      "@themes": ["themes/index.ts"]
+      "@themes": ["themes/index.ts"],
+      "@models": ["models/index.ts"]
     }
   },
 

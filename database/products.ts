@@ -9,6 +9,8 @@ interface SeedProduct {
   title: string;
   type: ValidTypes;
   gender: 'men' | 'women' | 'kid' | 'unisex';
+
+  //Todo: add createdAt - updatedAT
 }
 
 type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL';
