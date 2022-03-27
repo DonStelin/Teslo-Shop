@@ -1,5 +1,7 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { toggleSideMenu } from '@store/uiSlice';
 import {
   AppBar,
   Badge,
@@ -17,6 +19,8 @@ import {
 
 export const Navbar = () => {
   const { asPath } = useRouter();
+  const dispatch = useDispatch();
+
   return (
     <AppBar>
       <Toolbar>
@@ -77,7 +81,7 @@ export const Navbar = () => {
           </Link>
         </NextLink>
 
-        <Button>Menu</Button>
+        <Button onClick={() => dispatch(toggleSideMenu())}>Menu</Button>
       </Toolbar>
     </AppBar>
   );
