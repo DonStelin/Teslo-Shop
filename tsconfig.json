@@ -21,7 +21,8 @@
       "@interfaces": ["interfaces/index.ts"],
       "@styles/*": ["styles/*"],
       "@themes": ["themes/index.ts"],
-      "@models": ["models/index.ts"]
+      "@models": ["models/index.ts"],
+      "@hooks": ["hooks/index.ts"]
     }
   },
 

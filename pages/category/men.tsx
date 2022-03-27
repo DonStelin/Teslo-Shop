@@ -5,23 +5,23 @@ import { ShopLayout } from '@components/layouts';
 import { useProducts } from '@hooks';
 import { FullScreenLoading } from '@components/ui';
 
-const HomePage: NextPage = () => {
-  const { products, isError, isLoading } = useProducts('/products');
+const WomenPage: NextPage = () => {
+  const { products, isError, isLoading } = useProducts('/products?gender=men');
 
   return (
     <ShopLayout
-      title="Teslo Shop - Home"
-      pageDescription="Find the best Teslo products"
+      title="Teslo Shop - Men"
+      pageDescription="Men's Designer Clothing"
     >
       <Typography variant="h1" component="h1">
         Shop
       </Typography>
       <Typography variant="h2" sx={{ mb: 1 }}>
-        All products
+        Men&apos;s Designer Clothing
       </Typography>
       {isLoading ? <FullScreenLoading /> : <ProductList products={products} />}
     </ShopLayout>
   );
 };
 
-export default HomePage;
+export default WomenPage;
