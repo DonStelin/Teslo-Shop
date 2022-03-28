@@ -10,8 +10,6 @@ const WomenPage: NextPage = () => {
     '/products?gender=women'
   );
 
-  console.log('Products', products);
-
   return (
     <ShopLayout title="Teslo Shop - Women" pageDescription="Women's clothing">
       <Typography variant="h1" component="h1">

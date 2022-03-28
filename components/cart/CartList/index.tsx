@@ -1,5 +1,6 @@
+import { FC } from 'react';
 import NextLink from 'next/link';
-import { initialData } from '@database';
+import { initialData } from '../../../database/doomyData';
 import {
   Box,
   CardActionArea,
@@ -10,7 +11,6 @@ import {
 } from '@mui/material';
 import { ItemCounter } from '@components/ui';
 import { Button } from '@mui/material';
-import { FC } from 'react';
 
 const productsInCart = [
   initialData.products[0],

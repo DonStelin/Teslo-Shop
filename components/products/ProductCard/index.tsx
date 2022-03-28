@@ -33,7 +33,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
     >
       <Card>
         <CardActionArea>
-          <NextLink href="/product/slug" passHref>
+          <NextLink href={`/product/${product.slug}`} passHref>
             <CardMedia
               alt={product.title}
               className="fadeIn"

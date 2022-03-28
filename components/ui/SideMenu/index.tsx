@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@store/index';
 import { toggleSideMenu } from '@store/uiSlice';
@@ -33,6 +34,13 @@ export const SideMenu = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const onSearchTerm = () => {
+    if (searchTerm.trim().length === 0) return;
+    navigateTo(`/search/${searchTerm.toLocaleLowerCase()}`);
+  };
+
   const navigateTo = (path: string) => {
     dispatch(toggleSideMenu());
     router.push(path);
@@ -49,11 +57,15 @@ export const SideMenu = () => {
         <List>
           <ListItem>
             <Input
+              autoFocus
+              value={searchTerm}
+              onKeyPress={(e) => e.key === 'Enter' && onSearchTerm()}
               type="text"
               placeholder="Search..."
+              onChange={(e) => setSearchTerm(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton aria-label="toggle password visibility">
+                  <IconButton onClick={onSearchTerm}>
                     <SearchOutlined />
                   </IconButton>
                 </InputAdornment>

@@ -46,7 +46,7 @@ const SummaryPage = () => {
                   <Link underline="always">Edit</Link>
                 </NextLink>
               </Box>
-              <OrderSummary />
+              {/*   <OrderSummary /> */}
               <Box sx={{ mt: 3 }}>
                 <Button color="secondary" className="circular-btn" fullWidth>
                   Confirm Order

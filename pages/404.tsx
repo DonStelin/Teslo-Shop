@@ -19,7 +19,7 @@ const Custom404 = () => {
         </Typography>
 
         <Typography marginLeft={2}>
-          Oops we didn't find what you were looking for
+          Oops we didn&apos;t find what you were looking for
         </Typography>
       </Box>
     </ShopLayout>

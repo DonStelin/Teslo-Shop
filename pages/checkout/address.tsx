@@ -3,14 +3,12 @@ import {
   Grid,
   TextField,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   Button,
   Box,
 } from '@mui/material';
-import React from 'react';
-import { ShopLayout } from '../../components/layouts/ShopLayout/index';
+import { ShopLayout } from '@components/layouts';
 
 const AddressPage = () => {
   return (
