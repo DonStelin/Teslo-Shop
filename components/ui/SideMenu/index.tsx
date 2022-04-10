@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@store/index';
 import { toggleSideMenu } from '@store/uiSlice';
 import {
   Box,
@@ -28,10 +26,11 @@ import {
   VpnKeyOutlined,
 } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 export const SideMenu = () => {
-  const isToggleMenuOpen = useSelector(({ ui }: RootState) => ui.isMenuOpen);
-  const dispatch = useDispatch();
+  const isToggleMenuOpen = useAppSelector(({ ui }) => ui.isMenuOpen);
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [searchTerm, setSearchTerm] = useState('');

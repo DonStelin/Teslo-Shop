@@ -5,6 +5,7 @@ import {
   Card,
   CardActionArea,
   CardMedia,
+  Chip,
   Grid,
   Typography,
 } from '@mui/material';
@@ -32,8 +33,20 @@ export const ProductCard: FC<Props> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <CardActionArea>
-          <NextLink href={`/product/${product.slug}`} passHref>
+        <NextLink href={`/product/${product.slug}`} passHref>
+          <CardActionArea>
+            {!product.inStock && (
+              <Chip
+                color="primary"
+                label="Out of Stock"
+                sx={{
+                  position: 'absolute',
+                  zIndex: 99,
+                  top: '10px',
+                  right: '10px',
+                }}
+              />
+            )}
             <CardMedia
               alt={product.title}
               className="fadeIn"
@@ -42,8 +55,8 @@ export const ProductCard: FC<Props> = ({ product }) => {
               onLoad={() => setIsImageLoaded(true)}
               loading="lazy"
             />
-          </NextLink>
-        </CardActionArea>
+          </CardActionArea>
+        </NextLink>
       </Card>
 
       <Box

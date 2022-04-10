@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 import { toggleSideMenu } from '@store/uiSlice';
 import {
   AppBar,
@@ -20,10 +19,11 @@ import {
   SearchOutlined,
   ShoppingCartCheckoutOutlined,
 } from '@mui/icons-material';
+import { useAppDispatch } from '@store/hooks';
 
 export const Navbar = () => {
   const { asPath, push } = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
