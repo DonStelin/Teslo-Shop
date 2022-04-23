@@ -1,27 +1,10 @@
-import { useEffect } from 'react';
 import { ICardProduct } from '@interfaces';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import Cookie from 'js-cookie';
-import {
-  loadCartFromCookiesOrStorage,
-  updateProductsInCart,
-} from '@store/cartSlide';
+import { updateProductsInCart } from '@store/cartSlice';
 
 export const useCart = () => {
   const cart = useAppSelector((state) => state.cart.productsInCart);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    Cookie.set('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  const loadCartFromCookies = () => {
-    const cookies = Cookie.get('cart');
-    if (cookies) {
-      const cart = JSON.parse(cookies);
-      dispatch(loadCartFromCookiesOrStorage(cart));
-    }
-  };
 
   const addToCart = (product: ICardProduct) => {
     let newCart;
@@ -33,7 +16,7 @@ export const useCart = () => {
     } else {
       newCart = cart.map((p) => {
         if (p._id === product._id && p.size === product.size) {
-          return { ...p, quantity: p.quantity + 1 };
+          return { ...p, quantity: p.quantity + product.quantity };
         }
         return p;
       });
@@ -41,5 +24,24 @@ export const useCart = () => {
     dispatch(updateProductsInCart(newCart));
   };
 
-  return { addToCart, loadCartFromCookies };
+  const updateQuantity = (newProduct: ICardProduct) => {
+    const newCart = cart.map((product) => {
+      if (product._id !== newProduct._id) return product;
+      if (product.size !== newProduct.size) return product;
+      return newProduct;
+    });
+    dispatch(updateProductsInCart(newCart));
+  };
+
+  const removeProductInCart = (product: ICardProduct) => {
+    //Remove product from cart if the _id and size are the same
+
+    const newCart = cart.filter(
+      (p) => p._id !== product._id || p.size !== product.size
+    );
+
+    dispatch(updateProductsInCart(newCart));
+  };
+
+  return { addToCart, updateQuantity, removeProductInCart };
 };

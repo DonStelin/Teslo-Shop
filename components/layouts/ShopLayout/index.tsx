@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Head from 'next/head';
 import { Navbar, SideMenu } from '@components/ui';
+import { useCart } from '@hooks';
 
 interface Props {
   title: string;
@@ -14,6 +15,12 @@ export const ShopLayout: FC<Props> = ({
   pageDescription,
   imageFullUrl,
 }) => {
+  /*   const { loadCartFromCookies } = useCart();
+
+  useEffect(() => {
+    loadCartFromCookies();
+  }, []);
+ */
   return (
     <>
       <Head>

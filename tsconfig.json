@@ -23,7 +23,8 @@
       "@styles/*": ["styles/*"],
       "@themes": ["themes/index.ts"],
       "@models": ["models/index.ts"],
-      "@hooks": ["hooks/index.ts"]
+      "@hooks": ["hooks/index.ts"],
+      "@utils": ["utils/index.ts"]
     }
   },
 

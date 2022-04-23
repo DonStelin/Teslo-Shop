@@ -36,6 +36,7 @@ const Slug: NextPage<Props> = ({ product }) => {
   const onAddProduct = () => {
     if (!tempCartProduct.size) return;
     addToCart(tempCartProduct);
+    router.push('/cart');
   };
 
   return (

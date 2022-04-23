@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import NextLink from 'next/link';
-import { initialData } from '../../../database/doomyData';
 import {
   Box,
   CardActionArea,
@@ -11,29 +10,38 @@ import {
 } from '@mui/material';
 import { ItemCounter } from '@components/ui';
 import { Button } from '@mui/material';
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[3],
-  initialData.products[5],
-];
+import { useAppSelector } from '@store/hooks';
+import { ICardProduct } from '@interfaces';
+import { useCart } from '@hooks';
 
 interface Props {
   editable?: boolean;
 }
 
 export const CartList: FC<Props> = ({ editable = false }) => {
+  const productsInCart = useAppSelector(({ cart }) => cart.productsInCart);
+
+  const { updateQuantity, removeProductInCart } = useCart();
+
+  const onQuantityChange = (product: ICardProduct, newQuantity: number) => {
+    updateQuantity({ ...product, quantity: newQuantity });
+  };
+
   return (
     <>
       {productsInCart.map((product) => (
-        <Grid container spacing={2} sx={{ mb: 1, pr: 2 }} key={product.slug}>
+        <Grid
+          container
+          spacing={2}
+          key={product.slug + product.size}
+          sx={{ mb: 1 }}
+        >
           <Grid item xs={3}>
-            {/* Todo: Redirect to product page */}
-            <NextLink href="/product/slug" passHref>
+            <NextLink href={`/product/${product.slug}`} passHref>
               <Link>
                 <CardActionArea>
                   <CardMedia
-                    image={`/products/${product.images[0]}`}
+                    image={`/products/${product.image}`}
                     component="img"
                     sx={{ borderRadius: '5px' }}
                   />
@@ -45,13 +53,19 @@ export const CartList: FC<Props> = ({ editable = false }) => {
             <Box display="flex" flexDirection="column">
               <Typography variant="body1">{product.title}</Typography>
               <Typography variant="body1">
-                Size: <strong>M</strong>
-                {/* Todo: Conditional  */}
+                Size: <strong>{product.size}</strong>
               </Typography>
+
               {editable ? (
-                <ItemCounter />
+                <ItemCounter
+                  currentValue={product.quantity}
+                  maxValue={10}
+                  updateValue={(value) => onQuantityChange(product, value)}
+                />
               ) : (
-                <Typography variant="h4">3 items</Typography>
+                <Typography variant="h5">
+                  {product.quantity} {product.quantity > 1 ? 'items' : 'item'}
+                </Typography>
               )}
             </Box>
           </Grid>
@@ -62,11 +76,14 @@ export const CartList: FC<Props> = ({ editable = false }) => {
             alignItems="center"
             flexDirection="column"
           >
-            <Typography variant="subtitle1">${product.price}</Typography>
-            {/* Editable */}
+            <Typography variant="subtitle1">{`$${product.price}`}</Typography>
 
             {editable && (
-              <Button variant="text" color="secondary">
+              <Button
+                variant="text"
+                color="secondary"
+                onClick={() => removeProductInCart(product)}
+              >
                 Remove
               </Button>
             )}

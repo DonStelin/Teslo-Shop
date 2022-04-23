@@ -20,8 +20,10 @@ import {
   ShoppingCartCheckoutOutlined,
 } from '@mui/icons-material';
 import { useAppDispatch } from '@store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 
 export const Navbar = () => {
+  const numberOfItems = useAppSelector(({ cart }) => cart.numberOfItems);
   const { asPath, push } = useRouter();
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState('');
@@ -120,7 +122,10 @@ export const Navbar = () => {
         <NextLink href="/cart" passHref>
           <Link>
             <IconButton>
-              <Badge badgeContent={2} color="secondary">
+              <Badge
+                badgeContent={numberOfItems > 9 ? '+9' : numberOfItems}
+                color="secondary"
+              >
                 <ShoppingCartCheckoutOutlined />
               </Badge>
             </IconButton>
