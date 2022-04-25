@@ -7,12 +7,15 @@ import {
 } from '@store/cartSlice';
 
 export const CartWrapper: FC = ({ children }) => {
-  const cart = useAppSelector((state) => state.cart.productsInCart);
+  const { productsInCart: cart, subTotal: cartSubtotal } = useAppSelector(
+    (state) => state.cart
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     try {
       const cookies = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : [];
+      if (cart === cookies) return;
       dispatch(loadCartFromCookiesOrStorage(cookies));
     } catch (error) {
       dispatch(loadCartFromCookiesOrStorage([]));
@@ -24,6 +27,7 @@ export const CartWrapper: FC = ({ children }) => {
   }, [cart]);
 
   useEffect(() => {
+    if (cart.length === 0 && !cartSubtotal) return;
     const numberOfItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     const subTotal = cart.reduce(
       (acc, item) => acc + item.price * item.quantity,

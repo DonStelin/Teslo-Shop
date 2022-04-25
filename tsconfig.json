@@ -24,7 +24,8 @@
       "@themes": ["themes/index.ts"],
       "@models": ["models/index.ts"],
       "@hooks": ["hooks/index.ts"],
-      "@utils": ["utils/index.ts"]
+      "@utils": ["utils/index.ts"],
+      "@api": ["api/index.ts"]
     }
   },
 
