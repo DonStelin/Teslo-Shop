@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICardProduct } from '@interfaces';
+import { ICardProduct, direction } from '@interfaces';
 
 export interface cartState {
   productsInCart: ICardProduct[];
@@ -7,6 +7,8 @@ export interface cartState {
   subTotal: number;
   tax: number;
   total: number;
+  isLoaded: boolean;
+  address?: direction;
 }
 
 const initialState: cartState = {
@@ -15,6 +17,8 @@ const initialState: cartState = {
   subTotal: 0,
   tax: 0,
   total: 0,
+  isLoaded: false,
+  address: undefined,
 };
 
 export const cartSlice = createSlice({
@@ -26,6 +30,7 @@ export const cartSlice = createSlice({
       { payload }: PayloadAction<ICardProduct[]>
     ) => {
       state.productsInCart = payload;
+      state.isLoaded = true;
     },
 
     updateProductsInCart: (
@@ -50,6 +55,12 @@ export const cartSlice = createSlice({
       state.tax = payload.tax;
       state.total = payload.total;
     },
+    loadAddressFromCookies(state, { payload }: PayloadAction<direction>) {
+      state.address = payload;
+    },
+    updateAddress(state, { payload }: PayloadAction<direction>) {
+      state.address = payload;
+    },
   },
 });
 
@@ -57,6 +68,8 @@ export const {
   loadCartFromCookiesOrStorage,
   updateProductsInCart,
   updateOrderSummary,
+  loadAddressFromCookies,
+  updateAddress,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

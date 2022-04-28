@@ -12,7 +12,6 @@ import {
 import { useForm } from 'react-hook-form';
 import { ErrorOutlined } from '@mui/icons-material';
 import { AuthLayout } from '@components/layouts';
-import { tesloApi } from '@api';
 import { validations } from '@utils';
 import { useAuth } from '@hooks';
 import { useRouter } from 'next/router';
@@ -29,7 +28,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ mode: 'onBlur' });
 
   const [showError, setShowError] = useState(false);
 
@@ -48,8 +47,8 @@ const LoginPage = () => {
       return;
     }
 
-    //Todo: navigate to the previous page or to the home page
-    router.replace('/');
+    const destination = router.query.p?.toString() || '/';
+    router.replace(destination);
   };
 
   return (
@@ -117,7 +116,14 @@ const LoginPage = () => {
             </Grid>
 
             <Grid item xs={12} display="flex" justifyContent="end">
-              <NextLink href="/auth/register" passHref>
+              <NextLink
+                href={
+                  router.query.p
+                    ? `/auth/register?p=${router.query.p} `
+                    : '/auth/register'
+                }
+                passHref
+              >
                 <Link underline="always">Don&apos;t have an account?</Link>
               </NextLink>
             </Grid>

@@ -3,9 +3,11 @@ import axios from 'axios';
 import { tesloApi } from '@api';
 import { useAppDispatch } from '@store/hooks';
 import { login } from '@store/authSlice';
+import { useRouter } from 'next/router';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const loginUser = async (
     email: string,
@@ -60,5 +62,11 @@ export const useAuth = () => {
     }
   };
 
-  return { loginUser, registerUser };
+  const logout = () => {
+    Cookies.remove('token');
+    Cookies.remove('cart');
+    router.reload();
+  };
+
+  return { loginUser, registerUser, logout };
 };

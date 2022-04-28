@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   Typography,
   Grid,
@@ -9,8 +11,19 @@ import {
 } from '@mui/material';
 import { CartList, OrderSummary } from '@components/cart';
 import { ShopLayout } from '@components/layouts';
+import { useAppSelector } from '@store/hooks';
 
 const CartPage = () => {
+  const { isLoaded, productsInCart } = useAppSelector((state) => state.cart);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && productsInCart.length === 0) {
+      router.replace('/cart/empty');
+    }
+  }, [isLoaded, productsInCart, router]);
+
+  if (!isLoaded || productsInCart.length === 0) return <></>;
   return (
     <ShopLayout title="Cart - 3" pageDescription="Your shopping cart">
       <Typography variant="h1" component="h1">
@@ -28,7 +41,12 @@ const CartPage = () => {
               <Divider sx={{ my: 1 }} />
               <OrderSummary />
               <Box sx={{ mt: 3 }}>
-                <Button color="secondary" className="circular-btn" fullWidth>
+                <Button
+                  color="secondary"
+                  className="circular-btn"
+                  href="/checkout/address"
+                  fullWidth
+                >
                   Checkout
                 </Button>
               </Box>

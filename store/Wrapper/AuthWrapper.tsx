@@ -11,6 +11,8 @@ export const AuthWrapper: FC = ({ children }) => {
   }, []);
 
   const checkToken = async () => {
+    if (!Cookie.get('token')) return;
+
     try {
       const { data } = await tesloApi('/user/validate-token');
       const { token, user } = data;

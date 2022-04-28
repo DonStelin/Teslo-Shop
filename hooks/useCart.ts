@@ -1,6 +1,7 @@
-import { ICardProduct } from '@interfaces';
+import { direction, ICardProduct } from '@interfaces';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { updateProductsInCart } from '@store/cartSlice';
+import { updateProductsInCart, updateAddress } from '@store/cartSlice';
+import Cookies from 'js-cookie';
 
 export const useCart = () => {
   const cart = useAppSelector((state) => state.cart.productsInCart);
@@ -43,5 +44,45 @@ export const useCart = () => {
     dispatch(updateProductsInCart(newCart));
   };
 
-  return { addToCart, updateQuantity, removeProductInCart };
+  const getDirectionFromCookies = () => {
+    const firstName = Cookies.get('firstName') || '';
+    const lastName = Cookies.get('lastName') || '';
+    const address = Cookies.get('address') || '';
+    const address2 = Cookies.get('address2') || '';
+    const zip = Cookies.get('zip') || '';
+    const city = Cookies.get('city') || '';
+    const country = Cookies.get('country') || '';
+    const phone = Cookies.get('phone') || '';
+
+    return {
+      firstName,
+      lastName,
+      address,
+      address2,
+      zip,
+      city,
+      country,
+      phone,
+    };
+  };
+
+  const updateUserAddress = (address: direction) => {
+    Cookies.set('firstName', address.firstName, { expires: 7 });
+    Cookies.set('lastName', address.lastName, { expires: 7 });
+    Cookies.set('address', address.address, { expires: 7 });
+    Cookies.set('address2', address.address2 || '', { expires: 7 });
+    Cookies.set('zip', address.zip, { expires: 7 });
+    Cookies.set('city', address.city, { expires: 7 });
+    Cookies.set('country', address.country, { expires: 7 });
+    Cookies.set('phone', address.phone, { expires: 7 });
+    dispatch(updateAddress(address));
+  };
+
+  return {
+    addToCart,
+    updateQuantity,
+    removeProductInCart,
+    getDirectionFromCookies,
+    updateUserAddress,
+  };
 };

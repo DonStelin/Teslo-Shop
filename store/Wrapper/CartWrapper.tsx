@@ -4,7 +4,9 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import {
   loadCartFromCookiesOrStorage,
   updateOrderSummary,
+  loadAddressFromCookies,
 } from '@store/cartSlice';
+import Cookies from 'js-cookie';
 
 export const CartWrapper: FC = ({ children }) => {
   const { productsInCart: cart, subTotal: cartSubtotal } = useAppSelector(
@@ -25,6 +27,23 @@ export const CartWrapper: FC = ({ children }) => {
   useEffect(() => {
     Cookie.set('cart', JSON.stringify(cart), { expires: 7 });
   }, [cart]);
+
+  useEffect(() => {
+    if (Cookies.get('firstName')) {
+      const address = {
+        firstName: Cookies.get('firstName') || '',
+        lastName: Cookies.get('lastName') || '',
+        address: Cookies.get('address') || '',
+        address2: Cookies.get('address2') || '',
+        zip: Cookies.get('zip') || '',
+        city: Cookies.get('city') || '',
+        country: Cookies.get('country') || '',
+        phone: Cookies.get('phone') || '',
+      };
+
+      dispatch(loadAddressFromCookies(address));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if (cart.length === 0 && !cartSubtotal) return;

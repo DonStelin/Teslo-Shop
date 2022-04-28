@@ -15,12 +15,6 @@ export const ShopLayout: FC<Props> = ({
   pageDescription,
   imageFullUrl,
 }) => {
-  /*   const { loadCartFromCookies } = useCart();
-
-  useEffect(() => {
-    loadCartFromCookies();
-  }, []);
- */
   return (
     <>
       <Head>

@@ -5,9 +5,9 @@ import { AuthWrapper } from './AuthWrapper';
 
 const AppWrapper: FC = ({ children }) => {
   return (
-    <AuthWrapper>
-      <CartWrapper>{children}</CartWrapper>
-    </AuthWrapper>
+    <CartWrapper>
+      <AuthWrapper>{children}</AuthWrapper>
+    </CartWrapper>
   );
 };
 
