@@ -16,13 +16,13 @@ import { direction } from '@interfaces';
 import { useCart } from '@hooks';
 
 const AddressPage = () => {
-  const { getDirectionFromCookies, updateUserAddress } = useCart();
+  const { getAddressFromCookies, updateUserAddress } = useCart();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<direction>({
-    defaultValues: getDirectionFromCookies(),
+    defaultValues: getAddressFromCookies(),
     mode: 'onBlur',
   });
 
@@ -125,28 +125,16 @@ const AddressPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <TextField
-                select
-                variant="filled"
-                label="Country"
-                placeholder="country"
-                defaultValue={Cookies.get('country') || countries[0].name}
-                {...register('country', {
-                  required: 'This field is required',
-                })}
-                error={!!errors.country}
-                // helperText={errors.country && errors.country.message}
-              >
-                {countries.map((country) => {
-                  return (
-                    <MenuItem key={country.code} value={country.code}>
-                      {country.name}
-                    </MenuItem>
-                  );
-                })}
-              </TextField>
-            </FormControl>
+            <TextField
+              label="Country"
+              variant="filled"
+              fullWidth
+              {...register('country', {
+                required: 'This field is required',
+              })}
+              error={!!errors.country}
+              helperText={errors.country && errors.country.message}
+            ></TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField

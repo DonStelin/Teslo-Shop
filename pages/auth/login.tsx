@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import NextLink from 'next/link';
+import { getSession, signIn, getProviders } from 'next-auth/react';
 import {
   Box,
   Button,
@@ -8,12 +10,12 @@ import {
   TextField,
   Typography,
   Chip,
+  Divider,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ErrorOutlined } from '@mui/icons-material';
 import { AuthLayout } from '@components/layouts';
 import { validations } from '@utils';
-import { useAuth } from '@hooks';
 import { useRouter } from 'next/router';
 
 type FormData = {
@@ -32,23 +34,20 @@ const LoginPage = () => {
 
   const [showError, setShowError] = useState(false);
 
-  const { loginUser } = useAuth();
+  const [providers, setProviders] = useState<any>({});
+
+  useEffect(() => {
+    getProviders().then((prov) => {
+      setProviders(prov);
+    });
+  }, []);
 
   const onLoginUser = async ({ email, password }: FormData) => {
     setShowError(false);
-
-    const isValidLogin = await loginUser(email, password);
-
-    if (!isValidLogin) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 3000);
-      return;
-    }
-
-    const destination = router.query.p?.toString() || '/';
-    router.replace(destination);
+    await signIn('credentials', {
+      email,
+      password,
+    });
   };
 
   return (
@@ -127,11 +126,57 @@ const LoginPage = () => {
                 <Link underline="always">Don&apos;t have an account?</Link>
               </NextLink>
             </Grid>
+            <Grid
+              item
+              xs={12}
+              display="flex"
+              flexDirection="column"
+              justifyContent="end"
+            >
+              <Divider sx={{ width: '100%', mb: 2 }} />
+              {Object.values(providers).map((provider: any) => {
+                if (provider.id === 'credentials') return null;
+
+                return (
+                  <Button
+                    key={provider.id}
+                    variant="outlined"
+                    color="primary"
+                    sx={{ mb: 1 }}
+                    onClick={() => signIn(provider.id)}
+                  >
+                    {provider.name}
+                  </Button>
+                );
+              })}
+            </Grid>
           </Grid>
         </Box>
       </form>
     </AuthLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
+  const session = await getSession({ req });
+
+  const { p = '/' } = query;
+
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default LoginPage;

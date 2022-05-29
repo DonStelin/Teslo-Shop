@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import {
   Typography,
@@ -12,19 +14,25 @@ import {
 import { CartList, OrderSummary } from '@components/cart';
 import { ShopLayout } from '@components/layouts';
 import { useAppSelector } from '@store/hooks';
-import { countries } from '@utils';
+import Cookies from 'js-cookie';
 
 const SummaryPage = () => {
   const { address: userAddress, numberOfItems } = useAppSelector(
     (state) => state.cart
   );
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!Cookies.get('firstName')) {
+      router.push('/checkout/address');
+    }
+  }, [router]);
+
   if (!userAddress) return <></>;
 
   const { firstName, lastName, address, address2, city, zip, country, phone } =
     userAddress;
-
-  const countryName = countries.find((item) => item.code === country)?.name;
 
   return (
     <ShopLayout title="Summary" pageDescription="Order Summary">
@@ -40,7 +48,7 @@ const SummaryPage = () => {
           <Card className="summary-card">
             <CardContent>
               <Typography variant="h2">
-                Summary ({numberOfItems}{' '}
+                Summary ({numberOfItems}
                 {numberOfItems === 1 ? 'item' : 'items'})
               </Typography>
               <Divider sx={{ my: 1 }} />
@@ -58,7 +66,7 @@ const SummaryPage = () => {
               <Typography>
                 {city}, {zip}
               </Typography>
-              <Typography>{countryName} </Typography>
+              <Typography>{country} </Typography>
               <Typography>{phone} </Typography>
               <Divider sx={{ my: 1 }} />
               <Box display="flex" justifyContent="end">

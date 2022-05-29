@@ -44,7 +44,7 @@ export const useCart = () => {
     dispatch(updateProductsInCart(newCart));
   };
 
-  const getDirectionFromCookies = () => {
+  const getAddressFromCookies = () => {
     const firstName = Cookies.get('firstName') || '';
     const lastName = Cookies.get('lastName') || '';
     const address = Cookies.get('address') || '';
@@ -82,7 +82,7 @@ export const useCart = () => {
     addToCart,
     updateQuantity,
     removeProductInCart,
-    getDirectionFromCookies,
+    getAddressFromCookies,
     updateUserAddress,
   };
 };

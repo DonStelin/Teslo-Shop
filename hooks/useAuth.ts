@@ -4,6 +4,7 @@ import { tesloApi } from '@api';
 import { useAppDispatch } from '@store/hooks';
 import { login } from '@store/authSlice';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -63,9 +64,16 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    Cookies.remove('token');
     Cookies.remove('cart');
-    router.reload();
+    Cookies.remove('firstName');
+    Cookies.remove('lastName');
+    Cookies.remove('address');
+    Cookies.remove('address2');
+    Cookies.remove('zip');
+    Cookies.remove('city');
+    Cookies.remove('country');
+    Cookies.remove('phone');
+    signOut();
   };
 
   return { loginUser, registerUser, logout };
