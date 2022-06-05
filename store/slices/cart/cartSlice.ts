@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICardProduct, direction } from '@interfaces';
+import { ICardProduct, shippingAddress } from '@interfaces';
 
 export interface cartState {
   productsInCart: ICardProduct[];
@@ -8,7 +8,7 @@ export interface cartState {
   tax: number;
   total: number;
   isLoaded: boolean;
-  address?: direction;
+  address?: shippingAddress;
 }
 
 const initialState: cartState = {
@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     loadCartFromCookiesOrStorage: (
-      state,
+      state: cartState,
       { payload }: PayloadAction<ICardProduct[]>
     ) => {
       state.productsInCart = payload;
@@ -34,13 +34,13 @@ export const cartSlice = createSlice({
     },
 
     updateProductsInCart: (
-      state,
+      state: cartState,
       { payload }: PayloadAction<ICardProduct[]>
     ) => {
       state.productsInCart = payload;
     },
     updateOrderSummary: (
-      state,
+      state: cartState,
       {
         payload,
       }: PayloadAction<{
@@ -55,11 +55,25 @@ export const cartSlice = createSlice({
       state.tax = payload.tax;
       state.total = payload.total;
     },
-    loadAddressFromCookies(state, { payload }: PayloadAction<direction>) {
+    loadAddressFromCookies(
+      state: cartState,
+      { payload }: PayloadAction<shippingAddress>
+    ) {
       state.address = payload;
     },
-    updateAddress(state, { payload }: PayloadAction<direction>) {
+    updateAddress(
+      state: cartState,
+      { payload }: PayloadAction<shippingAddress>
+    ) {
       state.address = payload;
+    },
+
+    completeOrder(state: cartState) {
+      state.productsInCart = [];
+      state.numberOfItems = 0;
+      state.subTotal = 0;
+      state.tax = 0;
+      state.total = 0;
     },
   },
 });
@@ -70,6 +84,5 @@ export const {
   updateOrderSummary,
   loadAddressFromCookies,
   updateAddress,
+  completeOrder,
 } = cartSlice.actions;
-
-export default cartSlice.reducer;

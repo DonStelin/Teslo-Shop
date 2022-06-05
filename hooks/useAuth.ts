@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { tesloApi } from '@api';
 import { useAppDispatch } from '@store/hooks';
-import { login } from '@store/authSlice';
+import { login } from '@store/slices/auth';
 import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
 

@@ -11,14 +11,15 @@ import {
 import { ItemCounter } from '@components/ui';
 import { Button } from '@mui/material';
 import { useAppSelector } from '@store/hooks';
-import { ICardProduct } from '@interfaces';
+import { ICardProduct, IOrderItem } from '@interfaces';
 import { useCart } from '@hooks';
 
 interface Props {
   editable?: boolean;
+  products: IOrderItem[];
 }
 
-export const CartList: FC<Props> = ({ editable = false }) => {
+export const CartList: FC<Props> = ({ editable = false, products }) => {
   const productsInCart = useAppSelector(({ cart }) => cart.productsInCart);
 
   const { updateQuantity, removeProductInCart } = useCart();
@@ -27,9 +28,11 @@ export const CartList: FC<Props> = ({ editable = false }) => {
     updateQuantity({ ...product, quantity: newQuantity });
   };
 
+  const productsToShow = products ? products : productsInCart;
+
   return (
     <>
-      {productsInCart.map((product) => (
+      {productsToShow.map((product) => (
         <Grid
           container
           spacing={2}
@@ -60,7 +63,9 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                 <ItemCounter
                   currentValue={product.quantity}
                   maxValue={10}
-                  updateValue={(value) => onQuantityChange(product, value)}
+                  updateValue={(value) =>
+                    onQuantityChange(product as ICardProduct, value)
+                  }
                 />
               ) : (
                 <Typography variant="h5">
@@ -82,7 +87,7 @@ export const CartList: FC<Props> = ({ editable = false }) => {
               <Button
                 variant="text"
                 color="secondary"
-                onClick={() => removeProductInCart(product)}
+                onClick={() => removeProductInCart(product as ICardProduct)}
               >
                 Remove
               </Button>

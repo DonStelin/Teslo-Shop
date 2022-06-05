@@ -12,12 +12,10 @@ export const uiSlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
-    toggleSideMenu(state) {
+    toggleSideMenu(state: uiState) {
       state.isMenuOpen = !state.isMenuOpen;
     },
   },
 });
 
 export const { toggleSideMenu } = uiSlice.actions;
-
-export default uiSlice.reducer;

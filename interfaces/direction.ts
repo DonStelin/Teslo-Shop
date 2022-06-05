@@ -1,4 +1,4 @@
-export interface direction {
+export interface shippingAddress {
   firstName: string;
   lastName: string;
   address: string;

@@ -26,7 +26,7 @@ import {
   VpnKeyOutlined,
 } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { toggleSideMenu } from '@store/uiSlice';
+import { toggleSideMenu } from '@store/slices/ui';
 import { useAuth } from '@hooks';
 
 export const SideMenu = () => {
@@ -85,7 +85,7 @@ export const SideMenu = () => {
                 <ListItemText primary={'Profile'} />
               </ListItem>
 
-              <ListItem button>
+              <ListItem button onClick={() => navigateTo('/orders/history')}>
                 <ListItemIcon>
                   <ConfirmationNumberOutlined />
                 </ListItemIcon>

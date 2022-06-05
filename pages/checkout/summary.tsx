@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import {
@@ -10,24 +10,35 @@ import {
   Box,
   Button,
   Link,
+  Chip,
 } from '@mui/material';
 import { CartList, OrderSummary } from '@components/cart';
 import { ShopLayout } from '@components/layouts';
-import { useAppSelector } from '@store/hooks';
+import { useAppSelector, useAppDispatch } from '@store/hooks';
+import { createOrder } from '@store/slices/cart';
 import Cookies from 'js-cookie';
 
 const SummaryPage = () => {
+  const router = useRouter();
+
   const { address: userAddress, numberOfItems } = useAppSelector(
     (state) => state.cart
   );
+  const dispatch = useAppDispatch();
 
-  const router = useRouter();
+  const [isPosting, setIsPosting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (!Cookies.get('firstName')) {
       router.push('/checkout/address');
     }
   }, [router]);
+
+  const createOrderHandler = async () => {
+    setIsPosting(true);
+    dispatch(createOrder(setErrorMessage, setIsPosting, router));
+  };
 
   if (!userAddress) return <></>;
 
@@ -75,10 +86,22 @@ const SummaryPage = () => {
                 </NextLink>
               </Box>
               <OrderSummary />
-              <Box sx={{ mt: 3 }}>
-                <Button color="secondary" className="circular-btn" fullWidth>
+              <Box sx={{ mt: 3 }} display="flex" flexDirection="column">
+                <Button
+                  color="secondary"
+                  className="circular-btn"
+                  fullWidth
+                  onClick={createOrderHandler}
+                  disabled={isPosting}
+                >
                   Confirm Order
                 </Button>
+
+                <Chip
+                  color="error"
+                  label={errorMessage}
+                  sx={{ display: errorMessage ? 'flex' : 'none', marginTop: 2 }}
+                />
               </Box>
             </CardContent>
           </Card>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { toggleSideMenu } from '@store/uiSlice';
+import { toggleSideMenu } from '@store/slices/ui';
 import {
   AppBar,
   Badge,
@@ -19,8 +19,7 @@ import {
   SearchOutlined,
   ShoppingCartCheckoutOutlined,
 } from '@mui/icons-material';
-import { useAppDispatch } from '@store/hooks';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 export const Navbar = () => {
   const numberOfItems = useAppSelector(({ cart }) => cart.numberOfItems);

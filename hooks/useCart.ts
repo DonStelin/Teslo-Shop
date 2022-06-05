@@ -1,6 +1,6 @@
-import { direction, ICardProduct } from '@interfaces';
+import { shippingAddress, ICardProduct } from '@interfaces';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { updateProductsInCart, updateAddress } from '@store/cartSlice';
+import { updateProductsInCart, updateAddress } from '@store/slices/cart';
 import Cookies from 'js-cookie';
 
 export const useCart = () => {
@@ -66,7 +66,7 @@ export const useCart = () => {
     };
   };
 
-  const updateUserAddress = (address: direction) => {
+  const updateUserAddress = (address: shippingAddress) => {
     Cookies.set('firstName', address.firstName, { expires: 7 });
     Cookies.set('lastName', address.lastName, { expires: 7 });
     Cookies.set('address', address.address, { expires: 7 });

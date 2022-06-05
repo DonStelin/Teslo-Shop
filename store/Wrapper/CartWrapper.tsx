@@ -5,7 +5,7 @@ import {
   loadCartFromCookiesOrStorage,
   updateOrderSummary,
   loadAddressFromCookies,
-} from '@store/cartSlice';
+} from '@store/slices/cart';
 import Cookies from 'js-cookie';
 
 export const CartWrapper: FC = ({ children }) => {
@@ -59,7 +59,7 @@ export const CartWrapper: FC = ({ children }) => {
       numberOfItems,
       subTotal,
       tax,
-      total: subTotal + tax,
+      total: subTotal + subTotal * taxRate,
     };
 
     dispatch(updateOrderSummary(orderSummary));

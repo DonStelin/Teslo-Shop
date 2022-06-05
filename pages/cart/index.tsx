@@ -14,7 +14,9 @@ import { ShopLayout } from '@components/layouts';
 import { useAppSelector } from '@store/hooks';
 
 const CartPage = () => {
-  const { isLoaded, productsInCart } = useAppSelector((state) => state.cart);
+  const { isLoaded, productsInCart, numberOfItems } = useAppSelector(
+    (state) => state.cart
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +27,12 @@ const CartPage = () => {
 
   if (!isLoaded || productsInCart.length === 0) return <></>;
   return (
-    <ShopLayout title="Cart - 3" pageDescription="Your shopping cart">
+    <ShopLayout
+      title={`Cart - ${numberOfItems} ${
+        numberOfItems === 1 ? 'item' : 'items'
+      }`}
+      pageDescription="Your shopping cart"
+    >
       <Typography variant="h1" component="h1">
         Cart
       </Typography>
