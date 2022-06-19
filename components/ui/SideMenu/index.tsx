@@ -26,7 +26,7 @@ import {
   VpnKeyOutlined,
 } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { toggleSideMenu } from '@store/slices/ui';
+import { toggleSideMenu } from '@store/ui';
 import { useAuth } from '@hooks';
 
 export const SideMenu = () => {

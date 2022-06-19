@@ -15,7 +15,7 @@ import {
 import { CartList, OrderSummary } from '@components/cart';
 import { ShopLayout } from '@components/layouts';
 import { useAppSelector, useAppDispatch } from '@store/hooks';
-import { createOrder } from '@store/slices/cart';
+import { createOrder } from '@store/cart';
 import Cookies from 'js-cookie';
 
 const SummaryPage = () => {

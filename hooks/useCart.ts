@@ -1,6 +1,6 @@
 import { shippingAddress, ICardProduct } from '@interfaces';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { updateProductsInCart, updateAddress } from '@store/slices/cart';
+import { updateProductsInCart, updateAddress } from '@store/cart';
 import Cookies from 'js-cookie';
 
 export const useCart = () => {

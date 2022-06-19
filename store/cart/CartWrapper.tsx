@@ -5,7 +5,7 @@ import {
   loadCartFromCookiesOrStorage,
   updateOrderSummary,
   loadAddressFromCookies,
-} from '@store/slices/cart';
+} from '@store/cart';
 import Cookies from 'js-cookie';
 
 export const CartWrapper: FC = ({ children }) => {

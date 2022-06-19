@@ -16,7 +16,7 @@ import { useCart } from '@hooks';
 
 interface Props {
   editable?: boolean;
-  products: IOrderItem[];
+  products?: IOrderItem[];
 }
 
 export const CartList: FC<Props> = ({ editable = false, products }) => {

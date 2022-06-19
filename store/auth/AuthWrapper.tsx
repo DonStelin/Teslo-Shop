@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useAppDispatch } from '@store/hooks';
-import { login } from '@store/slices/auth';
+import { login } from '@store/auth';
 import { IUser } from '@interfaces';
 
 export const AuthWrapper: FC = ({ children }) => {

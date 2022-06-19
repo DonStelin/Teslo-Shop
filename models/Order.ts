@@ -38,6 +38,7 @@ const orderSchema = new Schema(
     isPaid: { type: Boolean, required: true, default: false },
     total: { type: Number, required: true },
     paidAt: { type: String },
+    transactionId: { type: String },
   },
 
   {
@@ -45,7 +46,7 @@ const orderSchema = new Schema(
   }
 );
 
-const User: Model<IOrder> =
+const Order: Model<IOrder> =
   mongoose.models.Order || model('Order', orderSchema);
 
-export default User;
+export default Order;

@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import Head from 'next/head';
-import { Navbar, SideMenu } from '@components/ui';
+import { CustomizedSnackbar, Navbar, SideMenu } from '@components/ui';
 import { useCart } from '@hooks';
 
 interface Props {
@@ -31,7 +31,7 @@ export const ShopLayout: FC<Props> = ({
       <SideMenu />
 
       <main className="shopLayout-main">{children}</main>
-
+      <CustomizedSnackbar />
       <footer>{/* Todo: Custom footer */}</footer>
     </>
   );

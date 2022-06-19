@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { CartWrapper } from './CartWrapper';
-import { AuthWrapper } from './AuthWrapper';
+import { CartWrapper } from './cart';
+import { AuthWrapper } from './auth';
 
 const AppWrapper: FC = ({ children }) => {
   return (

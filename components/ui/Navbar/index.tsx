@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { toggleSideMenu } from '@store/slices/ui';
+import { toggleSideMenu } from '@store/ui';
 import {
   AppBar,
   Badge,
