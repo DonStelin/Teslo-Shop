@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import { CustomizedSnackbar } from '@components/ui';
 
 interface Props {
   title: string;

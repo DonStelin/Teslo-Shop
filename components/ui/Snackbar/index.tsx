@@ -27,8 +27,9 @@ export const CustomizedSnackbar = () => {
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
-      <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose}>
         <Alert
+          className="fadeIn"
           onClose={handleClose}
           severity={type || 'info'}
           sx={{ width: '100%' }}

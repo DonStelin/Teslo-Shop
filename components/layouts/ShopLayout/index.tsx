@@ -1,7 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import Head from 'next/head';
 import { CustomizedSnackbar, Navbar, SideMenu } from '@components/ui';
-import { useCart } from '@hooks';
 
 interface Props {
   title: string;

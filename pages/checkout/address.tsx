@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
 import { ShopLayout } from '@components/layouts';
 import { countries } from '@utils';
-import { direction } from '@interfaces';
+import { shippingAddress } from '@interfaces';
 import { useCart } from '@hooks';
 
 const AddressPage = () => {
@@ -21,14 +21,14 @@ const AddressPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<direction>({
+  } = useForm<shippingAddress>({
     defaultValues: getAddressFromCookies(),
     mode: 'onBlur',
   });
 
   const router = useRouter();
 
-  const onSubmit = (data: direction) => {
+  const onSubmit = (data: shippingAddress) => {
     updateUserAddress(data);
 
     router.push('/checkout/summary');
