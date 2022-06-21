@@ -9,10 +9,11 @@ export interface IProduct {
   tags: string[];
   title: string;
   type: IType;
-  gender: 'men' | 'women' | 'kid' | 'unisex';
+  gender: IGender;
   createdAt: string;
   updatedAt: string;
 }
 
+export type IGender = 'men' | 'women' | 'kid' | 'unisex';
 export type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL';
 export type IType = 'shirts' | 'pants' | 'hoodies' | 'hats';

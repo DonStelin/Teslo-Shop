@@ -95,39 +95,6 @@ export const SideMenu = () => {
             </>
           )}
 
-          <ListItem
-            button
-            sx={{ display: { sm: 'none' } }}
-            onClick={() => navigateTo('/category/men')}
-          >
-            <ListItemIcon>
-              <MaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Men'} />
-          </ListItem>
-
-          <ListItem
-            button
-            sx={{ display: { sm: 'none' } }}
-            onClick={() => navigateTo('/category/women')}
-          >
-            <ListItemIcon>
-              <FemaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Women'} />
-          </ListItem>
-
-          <ListItem
-            button
-            sx={{ display: { sm: 'none' } }}
-            onClick={() => navigateTo('/category/kids')}
-          >
-            <ListItemIcon>
-              <EscalatorWarningOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Kids'} />
-          </ListItem>
-
           {isLoggedIn ? (
             <ListItem button onClick={logout}>
               <ListItemIcon>
@@ -146,6 +113,27 @@ export const SideMenu = () => {
               <ListItemText primary={' Log in '} />
             </ListItem>
           )}
+          <Divider />
+          <ListItem button onClick={() => navigateTo('/category/men')}>
+            <ListItemIcon>
+              <MaleOutlined />
+            </ListItemIcon>
+            <ListItemText primary={'Men'} />
+          </ListItem>
+
+          <ListItem button onClick={() => navigateTo('/category/women')}>
+            <ListItemIcon>
+              <FemaleOutlined />
+            </ListItemIcon>
+            <ListItemText primary={'Women'} />
+          </ListItem>
+
+          <ListItem button onClick={() => navigateTo('/category/kids')}>
+            <ListItemIcon>
+              <EscalatorWarningOutlined />
+            </ListItemIcon>
+            <ListItemText primary={'Kids'} />
+          </ListItem>
 
           {isLoggedIn && user?.role === 'admin' && (
             <>
@@ -157,7 +145,7 @@ export const SideMenu = () => {
                 </ListItemIcon>
                 <ListItemText primary={'Dashboard'} />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={() => navigateTo('/admin/products')}>
                 <ListItemIcon>
                   <CategoryOutlined />
                 </ListItemIcon>
