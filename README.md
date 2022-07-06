@@ -1,6 +1,6 @@
 # Next.js Teslo Shop
 
-Clothes ecommerce application with Next.js.
+Clothes ecommerce application with Next.js and Typescript.
 
 # Technologies
 
